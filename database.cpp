@@ -1,7 +1,7 @@
 #include "database.hpp"
 
 void database::addStudent(student person) {
-    base.push_back(person);
+    base_.push_back(person);
 }
 void database::displayStudent(student person) const {
     person.displayIndex(person.getIndex());
@@ -12,7 +12,32 @@ void database::displayStudent(student person) const {
     std::cout << '\n';
 }
 void database::displayBase() const {
-    for (auto& el : base) {
+    for (auto& el : base_) {
         displayStudent(el);
+    }
+}
+void database::findPESEL(std::array<size_t, 11> PESEL) const {
+    size_t counter = 0;
+    for (auto& el : base_) {
+        if (el.getPESEL() == PESEL) {
+            displayStudent(el);
+            counter++;
+            break;
+        }
+    }
+    if (counter == 0) {
+        std::cout << "PESEL not found!\n";
+    }
+}
+void database::findSurname(std::string surname) const {
+    size_t counter = 0;
+    for (auto& el : base_) {
+        if (el.getSurname() == surname) {
+            displayStudent(el);
+            counter++;
+        }
+    }
+    if (counter == 0) {
+        std::cout << surname << " not found!\n";
     }
 }
