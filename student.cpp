@@ -37,3 +37,27 @@ void student::setIndex(std::array<size_t, 6> index) {
 void student::setSex(sex sex) {
     student::sex_ = sex;
 }
+void student::displayPESEL(std::array<size_t, 11> PESEL) const {
+    for (auto& el : PESEL) {
+        std::cout << el;
+    }
+}
+void student::displayIndex(std::array<size_t, 6> index) const {
+    for (auto& el : index) {
+        std::cout << el;
+    }
+}
+void student::displaySex(sex sex) const {
+    switch (sex) {
+    case sex::female:
+        std::cout << "female";
+        break;
+    case sex::male:
+        std::cout << "male";
+        break;
+    default:
+        std::cout << "undefined";
+    }
+}
+student::student(std::string name, std::string surname, std::string address, std::array<size_t, 11> PESEL, std::array<size_t, 6> index, sex sex)
+    : name_(name), surname_(surname), address_(address), index_(index), PESEL_(PESEL), sex_(sex) {}
