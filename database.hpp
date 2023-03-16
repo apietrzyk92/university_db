@@ -11,4 +11,5 @@ public:
     void displayBase() const;
     void findPESEL(std::array<size_t, 11> PESEL) const;
     void findSurname(std::string surname) const;
+    void sortByPESEL();
 };

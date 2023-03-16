@@ -41,3 +41,9 @@ void database::findSurname(std::string surname) const {
         std::cout << surname << " not found!\n";
     }
 }
+void database::sortByPESEL() {
+    auto comparePESELS = [](student lhs, student rhs) {
+        return (lhs.getPESEL() < rhs.getPESEL());
+    };
+    base_.sort(comparePESELS);
+}
