@@ -47,3 +47,9 @@ void database::sortByPESEL() {
     };
     base_.sort(comparePESELS);
 }
+void database::sortBySurname() {
+    auto compareSurnames = [](student lhs, student rhs) {
+        return (lhs.getSurname() < rhs.getSurname());
+    };
+    base_.sort(compareSurnames);
+}
