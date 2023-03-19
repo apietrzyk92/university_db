@@ -1,7 +1,7 @@
 #include "database.hpp"
 
 void database::addStudent(student person) {
-    base_.push_back(person);
+    base_.push_front(person);
 }
 void database::displayStudent(student person) const {
     person.displayIndex(person.getIndex());
@@ -52,4 +52,14 @@ void database::sortBySurname() {
         return (lhs.getSurname() < rhs.getSurname());
     };
     base_.sort(compareSurnames);
+}
+void database::removeStudent(std::array<size_t, 11> PESEL) {
+    auto it = base_.before_begin();
+    for (auto& el : base_) {
+        if (el.getPESEL() == PESEL) {
+            base_.erase_after(it);
+            break;
+        }
+        it = std::next(it);
+    }
 }
