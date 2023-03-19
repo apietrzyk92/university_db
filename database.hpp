@@ -1,4 +1,5 @@
 #include <forward_list>
+#include <fstream>
 #include "student.hpp"
 
 class database {
@@ -15,4 +16,5 @@ public:
     void sortByPESEL();
     void sortBySurname();
     void removeStudent(std::array<size_t, 11> PESEL);
+    void saveBase();
 };

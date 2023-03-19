@@ -80,3 +80,27 @@ bool database::validatePESEL(std::array<size_t, 11> PESEL) {
         return (PESEL[10] == (10 - S));
     }
 }
+
+void database::saveBase() {
+    std::ofstream file;
+    file.open("StudentBase.txt");
+    file << "Index, Name, Surname, Address, PESEL, sex\n";
+    for (auto& el : base_) {
+        std::array<size_t, 6> index = el.getIndex();
+        for (size_t i = 0; i < 6; i++) {
+            file << index[i];
+        }
+        file << ' ' << el.getName() << ' ' << el.getSurname() << ' ' << el.getAddress() << ' ';
+        std::array<size_t, 11> PESEL = el.getPESEL();
+        for (size_t i = 0; i < 11; i++) {
+            file << PESEL[i];
+        }
+        file << ' ';
+        if (el.getSex() == sex::male) {
+            file << "male\n";
+        } else {
+            file << "female\n";
+        }
+    }
+    file.close();
+}
