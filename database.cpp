@@ -1,7 +1,11 @@
 #include "database.hpp"
 
 void database::addStudent(student person) {
-    base_.push_front(person);
+    if (validatePESEL(person.getPESEL())) {
+        base_.push_front(person);
+    } else {
+        std::cout << "PESEL validation failed!\n";
+    }
 }
 void database::displayStudent(student person) const {
     person.displayIndex(person.getIndex());
@@ -61,5 +65,18 @@ void database::removeStudent(std::array<size_t, 11> PESEL) {
             break;
         }
         it = std::next(it);
+    }
+}
+bool database::validatePESEL(std::array<size_t, 11> PESEL) {
+    std::array<size_t, 10> w = {1, 3, 7, 9, 1, 3, 7, 9, 1, 3};
+    size_t S = 0;
+    for (size_t i = 0; i < 10; i++) {
+        S += PESEL[i] * w[i];
+    }
+    S = S % 10;
+    if (S == 0) {
+        return (PESEL[10] == 0);
+    } else {
+        return (PESEL[10] == (10 - S));
     }
 }

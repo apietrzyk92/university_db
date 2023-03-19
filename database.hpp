@@ -5,6 +5,7 @@ class database {
 private:
     std::forward_list<student> base_;
     void displayStudent(student person) const;
+    bool validatePESEL(std::array<size_t, 11> PESEL);
 
 public:
     void addStudent(student person);
