@@ -116,6 +116,7 @@ void database::readBase(std::string fileName) {
     std::array<size_t, 11> pesel;
     sex sex;
     std::ifstream file(fileName);
+    auto it = base_.before_begin();
     if (file.is_open()) {
         getline(file, line);  // extracting column's headers
         while (getline(file, line)) {
@@ -146,7 +147,8 @@ void database::readBase(std::string fileName) {
                 sex = sex::female;
             }
             student record(name, surname, address, pesel, index, sex);
-            addStudent(record);
+            base_.insert_after(it, record);
+            ++it;
         }
         file.close();
     } else {
