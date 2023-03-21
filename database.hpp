@@ -7,6 +7,7 @@ private:
     std::forward_list<student> base_;
     void displayStudent(const student& person) const;
     bool validatePESEL(std::array<size_t, 11> PESEL);
+    void removeBase();
 
 public:
     void addStudent(student& person);
@@ -17,4 +18,5 @@ public:
     void sortBySurname();
     void removeStudent(std::array<size_t, 11>& PESEL);
     void saveBase();
+    void readBase(std::string fileName);
 };
