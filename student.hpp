@@ -24,9 +24,9 @@ public:
     std::array<size_t, 11> getPESEL() const;
     std::array<size_t, 6> getIndex() const;
     sex getSex() const;
-    void displayPESEL(std::array<size_t, 11> PESEL) const;
-    void displayIndex(std::array<size_t, 6> index) const;
-    void displaySex(sex sex) const;
+    void displayPESEL(const std::array<size_t, 11>& PESEL) const;
+    void displayIndex(const std::array<size_t, 6>& index) const;
+    void displaySex(const sex& sex) const;
 
     void setName(std::string name);
     void setSurname(std::string surname);

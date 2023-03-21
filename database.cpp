@@ -1,13 +1,13 @@
 #include "database.hpp"
 
-void database::addStudent(student person) {
+void database::addStudent(student& person) {
     if (validatePESEL(person.getPESEL())) {
         base_.push_front(person);
     } else {
         std::cout << "PESEL validation failed!\n";
     }
 }
-void database::displayStudent(student person) const {
+void database::displayStudent(const student& person) const {
     person.displayIndex(person.getIndex());
     std::cout << " " << person.getName() << " " << person.getSurname() << " ";
     person.displayPESEL(person.getPESEL());
@@ -20,7 +20,7 @@ void database::displayBase() const {
         displayStudent(el);
     }
 }
-void database::findPESEL(std::array<size_t, 11> PESEL) const {
+void database::findPESEL(std::array<size_t, 11>& PESEL) const {
     size_t counter = 0;
     for (auto& el : base_) {
         if (el.getPESEL() == PESEL) {
@@ -33,7 +33,7 @@ void database::findPESEL(std::array<size_t, 11> PESEL) const {
         std::cout << "PESEL not found!\n";
     }
 }
-void database::findSurname(std::string surname) const {
+void database::findSurname(std::string& surname) const {
     size_t counter = 0;
     for (auto& el : base_) {
         if (el.getSurname() == surname) {
@@ -46,18 +46,18 @@ void database::findSurname(std::string surname) const {
     }
 }
 void database::sortByPESEL() {
-    auto comparePESELS = [](student lhs, student rhs) {
+    auto comparePESELS = [](student& lhs, student& rhs) {
         return (lhs.getPESEL() < rhs.getPESEL());
     };
     base_.sort(comparePESELS);
 }
 void database::sortBySurname() {
-    auto compareSurnames = [](student lhs, student rhs) {
+    auto compareSurnames = [](student& lhs, student& rhs) {
         return (lhs.getSurname() < rhs.getSurname());
     };
     base_.sort(compareSurnames);
 }
-void database::removeStudent(std::array<size_t, 11> PESEL) {
+void database::removeStudent(std::array<size_t, 11>& PESEL) {
     auto it = base_.before_begin();
     for (auto& el : base_) {
         if (el.getPESEL() == PESEL) {
