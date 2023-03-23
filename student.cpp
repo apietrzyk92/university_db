@@ -1,53 +1,70 @@
 #include "student.hpp"
 
-std::string student::getName() const {
-    return student::name_;
-}
-std::string student::getSurname() const {
-    return student::surname_;
-}
-std::string student::getAddress() const {
-    return student::address_;
-}
-std::array<size_t, 11> student::getPESEL() const {
-    return student::PESEL_;
-}
-std::array<size_t, 6> student::getIndex() const {
-    return student::index_;
-}
-sex student::getSex() const {
-    return student::sex_;
+std::string Student::getName() const {
+    return Student::name_;
 }
 
-void student::setName(std::string name) {
-    student::name_ = name;
+std::string Student::getSurname() const {
+    return Student::surname_;
 }
-void student::setSurname(std::string surname) {
-    student::surname_ = surname;
+
+std::string Student::getAddress() const {
+    return Student::address_;
 }
-void student::setAddress(std::string address) {
-    student::address_ = address;
+
+std::array<size_t, 11> Student::getPESEL() const {
+    return Student::PESEL_;
 }
-void student::setPESEL(std::array<size_t, 11> PESEL) {
-    student::PESEL_ = PESEL;
+
+std::array<size_t, 6> Student::getIndex() const {
+    return Student::index_;
 }
-void student::setIndex(std::array<size_t, 6> index) {
-    student::index_ = index;
+
+sex Student::getSex() const {
+    return Student::sex_;
 }
-void student::setSex(sex sex) {
-    student::sex_ = sex;
+
+void Student::setName(std::string name) {
+    Student::name_ = name;
 }
-void student::displayPESEL(const std::array<size_t, 11>& PESEL) const {
+
+void Student::setSurname(std::string surname) {
+    Student::surname_ = surname;
+}
+
+void Student::setAddress(std::string address) {
+    Student::address_ = address;
+}
+
+void Student::setPESEL(std::array<size_t, 11> PESEL) {
+    if (validatePESEL(PESEL)) {
+        Student::PESEL_ = PESEL;
+    } else {
+        std::cout << "Incorrect PESEL!\n";
+    }
+}
+
+void Student::setIndex(std::array<size_t, 6> index) {
+    Student::index_ = index;
+}
+
+void Student::setSex(sex sex) {
+    Student::sex_ = sex;
+}
+
+void Student::displayPESEL(const std::array<size_t, 11>& PESEL) const {
     for (auto& el : PESEL) {
         std::cout << el;
     }
 }
-void student::displayIndex(const std::array<size_t, 6>& index) const {
+
+void Student::displayIndex(const std::array<size_t, 6>& index) const {
     for (auto& el : index) {
         std::cout << el;
     }
 }
-void student::displaySex(const sex& sex) const {
+
+void Student::displaySex(const sex& sex) const {
     switch (sex) {
     case sex::female:
         std::cout << "female";
@@ -59,5 +76,32 @@ void student::displaySex(const sex& sex) const {
         std::cout << "undefined";
     }
 }
-student::student(std::string name, std::string surname, std::string address, std::array<size_t, 11> PESEL, std::array<size_t, 6> index, sex sex)
-    : name_(name), surname_(surname), address_(address), index_(index), PESEL_(PESEL), sex_(sex) {}
+
+bool Student::validatePESEL(std::array<size_t, 11> PESEL) {
+    std::array<size_t, 10> w = {1, 3, 7, 9, 1, 3, 7, 9, 1, 3};
+    size_t S = 0;
+    for (size_t i = 0; i < 10; i++) {
+        S += PESEL[i] * w[i];
+    }
+    S = S % 10;
+    if (S == 0) {
+        return (PESEL[10] == 0);
+    } else {
+        return (PESEL[10] == (10 - S));
+    }
+}
+
+Student::Student(Name name,
+                 std::string surname,
+                 std::string address,
+                 std::array<size_t, 11> PESEL,
+                 std::array<size_t, 6> index,
+                 sex sex)
+    : name_(name), surname_(surname), address_(address), index_(index), sex_(sex) {
+    if (validatePESEL(PESEL)) {
+        PESEL_ = PESEL;
+    } else {
+        std::cout << "Student created, but PESEL is incorrect!\n";
+        PESEL_ = PESEL;
+    }
+}

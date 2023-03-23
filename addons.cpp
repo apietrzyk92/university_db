@@ -103,13 +103,13 @@ std::string generateAddress() {
     return "ul. " + streetNames[distrib(gen)] + " " + buildingNo[distrib(gen)] +
            " " + postCodes[distrib(gen)] + " " + cityNames[distrib(gen)];
 }
-student generateStudent() {
+Student generateStudent() {
     sex sex = generateSex();
     std::string name = generateName(sex);
     std::string surname = generateSurname(sex);
     std::string address = generateAddress();
     std::array<size_t, 11> pesel = generatePESEL();
     std::array<size_t, 6> index = generateIndex();
-    student generated(name, surname, address, pesel, index, sex);
+    Student generated(name, surname, address, pesel, index, sex);
     return generated;
 }

@@ -1,13 +1,17 @@
-#include "database.hpp"
+#include "university.hpp"
 
-void database::addStudent(student& person) {
-    if (validatePESEL(person.getPESEL())) {
+void University::addStudent(Student& person) {
+    std::array<size_t, 11> pesel = person.getPESEL();
+    if (person.validatePESEL(pesel)) {
         base_.push_front(person);
     } else {
-        std::cout << "PESEL validation failed!\n";
+        std::cout << "Unable to add student with incorrect PESEL!\n";
+        std::array<size_t, 6> index = person.getIndex();
+        University::removeStudent(index);
     }
 }
-void database::displayStudent(const student& person) const {
+
+void University::displayStudent(const Student& person) const {
     person.displayIndex(person.getIndex());
     std::cout << " " << person.getName() << " " << person.getSurname() << " ";
     person.displayPESEL(person.getPESEL());
@@ -15,12 +19,14 @@ void database::displayStudent(const student& person) const {
     person.displaySex(person.getSex());
     std::cout << '\n';
 }
-void database::displayBase() const {
+
+void University::displayBase() const {
     for (auto& el : base_) {
         displayStudent(el);
     }
 }
-void database::findPESEL(std::array<size_t, 11>& PESEL) const {
+
+void University::findPESEL(std::array<size_t, 11>& PESEL) const {
     size_t counter = 0;
     for (auto& el : base_) {
         if (el.getPESEL() == PESEL) {
@@ -33,7 +39,8 @@ void database::findPESEL(std::array<size_t, 11>& PESEL) const {
         std::cout << "PESEL not found!\n";
     }
 }
-void database::findSurname(std::string& surname) const {
+
+void University::findSurname(std::string& surname) const {
     size_t counter = 0;
     for (auto& el : base_) {
         if (el.getSurname() == surname) {
@@ -45,19 +52,26 @@ void database::findSurname(std::string& surname) const {
         std::cout << surname << " not found!\n";
     }
 }
-void database::sortByPESEL() {
-    auto comparePESELS = [](student& lhs, student& rhs) {
+
+void University::sortByPESEL() {
+    auto comparePESELS = [](Student& lhs, Student& rhs) {
         return (lhs.getPESEL() < rhs.getPESEL());
     };
     base_.sort(comparePESELS);
 }
-void database::sortBySurname() {
-    auto compareSurnames = [](student& lhs, student& rhs) {
-        return (lhs.getSurname() < rhs.getSurname());
+
+void University::sortBySurname() {
+    auto compareSurnames = [](Student& lhs, Student& rhs) {
+        if (lhs.getSurname() == rhs.getSurname()) {
+            return (lhs.getName() < rhs.getName());
+        } else {
+            return (lhs.getSurname() < rhs.getSurname());
+        }
     };
     base_.sort(compareSurnames);
 }
-void database::removeStudent(std::array<size_t, 11>& PESEL) {
+
+void University::removeStudent(const std::array<size_t, 11>& PESEL) {
     auto it = base_.before_begin();
     for (auto& el : base_) {
         if (el.getPESEL() == PESEL) {
@@ -67,21 +81,19 @@ void database::removeStudent(std::array<size_t, 11>& PESEL) {
         it = std::next(it);
     }
 }
-bool database::validatePESEL(std::array<size_t, 11> PESEL) {
-    std::array<size_t, 10> w = {1, 3, 7, 9, 1, 3, 7, 9, 1, 3};
-    size_t S = 0;
-    for (size_t i = 0; i < 10; i++) {
-        S += PESEL[i] * w[i];
-    }
-    S = S % 10;
-    if (S == 0) {
-        return (PESEL[10] == 0);
-    } else {
-        return (PESEL[10] == (10 - S));
+
+void University::removeStudent(const std::array<size_t, 6>& index) {
+    auto it = base_.before_begin();
+    for (auto& el : base_) {
+        if (el.getIndex() == index) {
+            base_.erase_after(it);
+            break;
+        }
+        it = std::next(it);
     }
 }
 
-void database::saveBase() {
+void University::saveBase() {
     std::ofstream file;
     file.open("StudentBase.txt");
     file << "Index, Name, Surname, Address, PESEL, sex\n";
@@ -105,7 +117,8 @@ void database::saveBase() {
     }
     file.close();
 }
-void database::readBase(std::string fileName) {
+
+void University::readBase(std::string fileName) {
     removeBase();
     std::string line;
     std::string name;
@@ -146,7 +159,7 @@ void database::readBase(std::string fileName) {
             } else {
                 sex = sex::female;
             }
-            student record(name, surname, address, pesel, index, sex);
+            Student record(name, surname, address, pesel, index, sex);
             base_.insert_after(it, record);
             ++it;
         }
@@ -155,6 +168,7 @@ void database::readBase(std::string fileName) {
         std::cout << "Unable to open file: " << fileName << "!\n";
     }
 }
-void database::removeBase() {
+
+void University::removeBase() {
     base_.clear();
 }

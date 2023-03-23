@@ -6,4 +6,4 @@ sex generateSex();
 std::string generateName(sex sex);
 std::string generateSurname(sex sex);
 std::string generateAddress();
-student generateStudent();
+Student generateStudent();
