@@ -51,27 +51,24 @@ std::array<size_t, 11> generatePESEL() {
     }
     return output;
 }
+
 std::array<size_t, 6> generateIndex() {
     std::array<size_t, 6> output;
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> distrib(0, 9);
     for (size_t i = 0; i < 6; i++) {
-        output[i] = (size_t)distrib(gen);
+        output[i] = generateNumber(0, 9);
     }
     return output;
 }
+
 sex generateSex() {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> distrib(0, 1);
-    int sex = (int)distrib(gen);
+    size_t sex = generateNumber(0, 1);
     if (sex == 0) {
         return sex::male;
     } else {
         return sex::female;
     }
 }
+
 std::string generateName(sex sex) {
     std::array<std::string, 10> maleNames = {"Antoni", "Jan", "Aleksander",
                                              "Franciszek", "Nikodem", "Jakub",
@@ -81,16 +78,14 @@ std::string generateName(sex sex) {
                                                "Maja", "Laura", "Julia",
                                                "Oliwia", "Alicja", "Lena",
                                                "Pola"};
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> distrib(0, 9);
-    int idx = (int)distrib(gen);
+    size_t idx = generateNumber(0, 9);
     if (sex == sex::male) {
         return maleNames[idx];
     } else {
         return femaleNames[idx];
     }
 }
+
 std::string generateSurname(sex sex) {
     std::array<std::string, 10> maleSurnames = {"Nowak", "Kowalski",
                                                 "Wiśniewski", "Wójcik",
@@ -102,16 +97,14 @@ std::string generateSurname(sex sex) {
                                                   "Kowalczyk", "Kamińska",
                                                   "Lewandowska", "Zielińska",
                                                   "Szymańska", "Wójcik"};
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> distrib(0, 9);
-    int idx = (int)distrib(gen);
+    size_t idx = generateNumber(0, 9);
     if (sex == sex::male) {
         return maleSurnames[idx];
     } else {
         return femaleSurnames[idx];
     }
 }
+
 std::string generateAddress() {
     std::array<std::string, 10> streetNames = {"Polna", "Leśna", "Słoneczna",
                                                "Krótka", "Szkolna", "Ogrodowa",
@@ -128,12 +121,12 @@ std::string generateAddress() {
                                              "Łódź", "Poznań", "Gdańsk",
                                              "Szczecin", "Bydgoszcz", "Lublin",
                                              "Białystok"};
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> distrib(0, 9);
-    return "ul. " + streetNames[distrib(gen)] + " " + buildingNo[distrib(gen)] +
-           " " + postCodes[distrib(gen)] + " " + cityNames[distrib(gen)];
+    return "ul. " + streetNames[generateNumber(0, 9)] + " " +
+           buildingNo[generateNumber(0, 9)] + " " +
+           postCodes[generateNumber(0, 9)] + " " +
+           cityNames[generateNumber(0, 9)];
 }
+
 Student generateStudent() {
     sex sex = generateSex();
     std::string name = generateName(sex);
