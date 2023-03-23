@@ -39,7 +39,7 @@ int main() {
     std::cout << "\nRemove student via PESEL:\n";
     base.removeStudent(pesel);
     base.displayBase();
-    std::cout << "\nSave databes to file and read from file:\n";
+    std::cout << "\nSave database to file and read from file:\n";
     base.saveBase();
     base.readBase("StudentBase.txt");
     std::cout << "\nLoaded University is: \n";

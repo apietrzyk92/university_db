@@ -1,15 +1,46 @@
 #include "addons.hpp"
 #include <random>
 
-std::array<size_t, 11> generatePESEL() {
-    size_t S = 0;
-    std::array<size_t, 10> w = {1, 3, 7, 9, 1, 3, 7, 9, 1, 3};
-    std::array<size_t, 11> output;
+size_t generateNumber(int a, int b) {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> distrib(0, 9);
+    std::uniform_int_distribution<> distrib(a, b);
+    return (size_t)distrib(gen);
+}
+
+std::array<size_t, 11> generatePESEL() {
+    std::array<size_t, 11> output;
+    // year:
+    size_t year = generateNumber(0, 99);
+    if (year < 51) {
+        year /= 10;
+    }
+    output.at(0) = year / 10;
+    output.at(1) = year % 10;
+    // month:
+    size_t month = generateNumber(1, 12);
+    output.at(2) = month / 10;
+    output.at(3) = month % 10;
+    // day:
+    size_t day = 0;
+    if (month == 2) {
+        day = generateNumber(1, 28);
+    } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+        day = generateNumber(1, 30);
+    } else {
+        day = generateNumber(1, 31);
+    }
+    output.at(4) = day / 10;
+    output.at(5) = day % 10;
+    if (output.at(0) == 0) {
+        output.at(2) += 2;
+    }
+    for (size_t i = 6; i < 10; i++) {
+        output.at(i) = generateNumber(0, 9);
+    }
+    size_t S = 0;
+    std::array<size_t, 10> w = {1, 3, 7, 9, 1, 3, 7, 9, 1, 3};
     for (size_t i = 0; i < 10; i++) {
-        output[i] = (size_t)distrib(gen);
         S += output[i] * w[i];
     }
     S = S % 10;
