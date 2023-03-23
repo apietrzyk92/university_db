@@ -1,5 +1,4 @@
 #include "addons.hpp"
-#include <random>
 
 size_t generateNumber(int a, int b) {
     std::random_device rd;
@@ -70,14 +69,10 @@ sex generateSex() {
 }
 
 std::string generateName(sex sex) {
-    std::array<std::string, 10> maleNames = {"Antoni", "Jan", "Aleksander",
-                                             "Franciszek", "Nikodem", "Jakub",
-                                             "Leon", "Stanisław", "Mikołaj",
-                                             "Szymon"};
-    std::array<std::string, 10> femaleNames = {"Zofia", "Zuzanna", "Hanna",
-                                               "Maja", "Laura", "Julia",
-                                               "Oliwia", "Alicja", "Lena",
-                                               "Pola"};
+    std::array<std::string, 10> maleNames = {"Antoni", "Jan", "Aleksander", "Franciszek", "Nikodem", "Jakub", "Leon",
+                                             "Stanisław", "Mikołaj", "Szymon"};
+    std::array<std::string, 10> femaleNames = {"Zofia", "Zuzanna", "Hanna", "Maja", "Laura", "Julia", "Oliwia",
+                                               "Alicja", "Lena", "Pola"};
     size_t idx = generateNumber(0, 9);
     if (sex == sex::male) {
         return maleNames[idx];
@@ -87,16 +82,10 @@ std::string generateName(sex sex) {
 }
 
 std::string generateSurname(sex sex) {
-    std::array<std::string, 10> maleSurnames = {"Nowak", "Kowalski",
-                                                "Wiśniewski", "Wójcik",
-                                                "Kowalczyk", "Kamiński",
-                                                "Lewandowski", "Zieliński",
-                                                "Szymański", "Wójcik"};
-    std::array<std::string, 10> femaleSurnames = {"Nowak", "Kowalska",
-                                                  "Wiśniewska", "Wójcik",
-                                                  "Kowalczyk", "Kamińska",
-                                                  "Lewandowska", "Zielińska",
-                                                  "Szymańska", "Wójcik"};
+    std::array<std::string, 10> maleSurnames = {"Nowak", "Kowalski", "Wiśniewski", "Wójcik", "Kowalczyk", "Kamiński",
+                                                "Lewandowski", "Zieliński", "Szymański", "Wójcik"};
+    std::array<std::string, 10> femaleSurnames = {"Nowak", "Kowalska", "Wiśniewska", "Wójcik", "Kowalczyk", "Kamińska",
+                                                  "Lewandowska", "Zielińska", "Szymańska", "Wójcik"};
     size_t idx = generateNumber(0, 9);
     if (sex == sex::male) {
         return maleSurnames[idx];
@@ -106,25 +95,15 @@ std::string generateSurname(sex sex) {
 }
 
 std::string generateAddress() {
-    std::array<std::string, 10> streetNames = {"Polna", "Leśna", "Słoneczna",
-                                               "Krótka", "Szkolna", "Ogrodowa",
-                                               "Lipowa", "Brzozowa", "Łąkowa",
-                                               "Kwiatowa"};
-    std::array<std::string, 10> buildingNo = {"24", "17/4", "67/8", "5a",
-                                              "96/54", "4/176", "96b", "2/134",
-                                              "12", "5/3"};
-    std::array<std::string, 10> postCodes = {"00-581", "30-1650", "52-120",
-                                             "91-065", "61-833", "80-734",
-                                             "71-015", "85-163", "20-425",
-                                             "15-424"};
-    std::array<std::string, 10> cityNames = {"Warszawa", "Kraków", "Wrocław",
-                                             "Łódź", "Poznań", "Gdańsk",
-                                             "Szczecin", "Bydgoszcz", "Lublin",
-                                             "Białystok"};
-    return "ul. " + streetNames[generateNumber(0, 9)] + " " +
-           buildingNo[generateNumber(0, 9)] + " " +
-           postCodes[generateNumber(0, 9)] + " " +
-           cityNames[generateNumber(0, 9)];
+    std::array<std::string, 10> streetNames = {"Polna", "Leśna", "Słoneczna", "Krótka", "Szkolna", "Ogrodowa",
+                                               "Lipowa", "Brzozowa", "Łąkowa", "Kwiatowa"};
+    std::array<std::string, 10> buildingNo = {"24", "17/4", "67/8", "5a", "96/54", "4/176", "96b", "2/134", "12", "5/3"};
+    std::array<std::string, 10> postCodes = {"00-581", "30-1650", "52-120", "91-065", "61-833", "80-734", "71-015",
+                                             "85-163", "20-425", "15-424"};
+    std::array<std::string, 10> cityNames = {"Warszawa", "Kraków", "Wrocław", "Łódź", "Poznań", "Gdańsk", "Szczecin",
+                                             "Bydgoszcz", "Lublin", "Białystok"};
+    return "ul. " + streetNames[generateNumber(0, 9)] + " " + buildingNo[generateNumber(0, 9)] + " " +
+           postCodes[generateNumber(0, 9)] + " " + cityNames[generateNumber(0, 9)];
 }
 
 Student generateStudent() {
