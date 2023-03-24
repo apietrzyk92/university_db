@@ -1,23 +1,26 @@
 #pragma once
-#include <forward_list>
 #include <fstream>
+#include <memory>
+#include <vector>
+#include "employee.hpp"
 #include "student.hpp"
 
 class University {
 private:
-    std::forward_list<Student> base_;
-    void displayStudent(const Student& person) const;
-    void removeBase();
+    std::vector<std::shared_ptr<Person>> base_;
+
+    void displayPerson(std::shared_ptr<Person> person) const;
+    // void removeBase();
 
 public:
-    void addStudent(Student& person);
+    void addPerson(std::shared_ptr<Person> person);
     void displayBase() const;
-    void findPESEL(std::array<size_t, 11>& PESEL) const;
-    void findSurname(std::string& surname) const;
-    void sortByPESEL();
-    void sortBySurname();
-    void removeStudent(const std::array<size_t, 11>& PESEL);
-    void removeStudent(const std::array<size_t, 6>& index);
-    void saveBase();
-    void readBase(std::string fileName);
+    /*    void findPESEL(std::shared_ptr<Person> PESEL) const;
+        void findSurname(std::string& surname) const;
+        void sortByPESEL();
+        void sortBySurname();
+        void removePerson(const pesel& PESEL);
+        void removeStudent(const indexNo& index);
+        void saveBase();
+        void readBase(std::string fileName); */
 };

@@ -9,4 +9,4 @@ void Employee::setSalary(float salary) {
 }
 
 Employee::Employee(std::string name, std::string surname, std::string address, pesel PESEL, float salary, sex sex)
-    : Person(name, surname, address, pesel, sex), salary_(salary) {}
+    : Person(name, surname, address, PESEL, sex), salary_(salary) {}

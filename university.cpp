@@ -1,31 +1,30 @@
 #include "university.hpp"
 
-void University::addStudent(Student& person) {
-    std::array<size_t, 11> pesel = person.getPESEL();
-    if (person.validatePESEL(pesel)) {
-        base_.push_front(person);
+void University::addPerson(std::shared_ptr<Person> person) {
+    pesel pesel = person->getPESEL();
+    if (person->validatePESEL(pesel)) {
+        base_.push_back(person);
     } else {
-        std::cout << "Unable to add student with incorrect PESEL!\n";
-        std::array<size_t, 6> index = person.getIndex();
-        University::removeStudent(index);
+        std::cout << "Unable to add person with incorrect PESEL!\n";
+        // University::removePerson(pesel);
     }
 }
 
-void University::displayStudent(const Student& person) const {
-    person.displayIndex(person.getIndex());
-    std::cout << " " << person.getName() << " " << person.getSurname() << " ";
-    person.displayPESEL(person.getPESEL());
-    std::cout << " " << person.getAddress() << " ";
-    person.displaySex(person.getSex());
+void University::displayPerson(std::shared_ptr<Person> person) const {
+    // person->displayIndex(person->getIndex());
+    std::cout << " " << person->getName() << " " << person->getSurname() << " ";
+    person->displayPESEL(person->getPESEL());
+    std::cout << " " << person->getAddress() << " ";
+    person->displaySex(person->getSex());
     std::cout << '\n';
 }
 
 void University::displayBase() const {
     for (auto& el : base_) {
-        displayStudent(el);
+        displayPerson(el);
     }
 }
-
+/*
 void University::findPESEL(std::array<size_t, 11>& PESEL) const {
     size_t counter = 0;
     for (auto& el : base_) {
@@ -82,7 +81,7 @@ void University::removeStudent(const std::array<size_t, 11>& PESEL) {
     }
 }
 
-void University::removeStudent(const std::array<size_t, 6>& index) {
+void University::removeStudent(const indexNo& index) {
     auto it = base_.before_begin();
     for (auto& el : base_) {
         if (el.getIndex() == index) {
@@ -171,4 +170,4 @@ void University::readBase(std::string fileName) {
 
 void University::removeBase() {
     base_.clear();
-}
+} */

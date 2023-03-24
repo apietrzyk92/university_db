@@ -10,4 +10,4 @@ public:
     void setSalary(float salary);
 
     Employee(std::string name, std::string surname, std::string address, pesel PESEL, float salary, sex sex);
-}
+};
