@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include <fstream>
 #include <memory>
 #include <vector>
@@ -10,17 +11,18 @@ private:
     std::vector<std::shared_ptr<Person>> base_;
 
     void displayPerson(std::shared_ptr<Person> person) const;
-    // void removeBase();
+    void removeBase();
 
 public:
     void addPerson(std::shared_ptr<Person> person);
     void displayBase() const;
-    /*    void findPESEL(std::shared_ptr<Person> PESEL) const;
-        void findSurname(std::string& surname) const;
-        void sortByPESEL();
-        void sortBySurname();
-        void removePerson(const pesel& PESEL);
-        void removeStudent(const indexNo& index);
-        void saveBase();
-        void readBase(std::string fileName); */
+    void findPESEL(pesel& PESEL) const;
+    void findSurname(std::string& surname) const;
+    void sortByPESEL();
+    void sortBySurname();
+    void removePerson(const pesel& PESEL);
+    /* void removeStudent(const indexNo& index);
+      void saveBase();
+      void readBase(std::string fileName);
+    */
 };

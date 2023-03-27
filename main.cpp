@@ -3,6 +3,28 @@
 
 int main() {
     University base;
+    sex sex = sex::male;
+    std::shared_ptr<Student> test(new Student(generateName(sex), generateSurname(sex), generateAddress(), generatePESEL(), generateIndex(), sex));
+    std::shared_ptr<Employee> test2(new Employee(generateName(sex), generateSurname(sex), generateAddress(), generatePESEL(), 4321.12, sex));
+    base.addPerson(test);
+    base.addPerson(test2);
+    base.displayBase();
+    pesel pesel = test->getPESEL();
+    std::string surname = test->getSurname();
+    std::cout << "Find PESEL:\n";
+    base.findPESEL(pesel);
+    std::cout << "Find surname:\n";
+    base.findSurname(surname);
+    std::cout << '\n';
+    base.sortByPESEL();
+    base.displayBase();
+    std::cout << '\n';
+    base.sortBySurname();
+    base.displayBase();
+    std::cout << '\n';
+    base.removePerson(pesel);
+    base.displayBase();
+    /*
     for (size_t i = 0; i < 10; i++) {
         Student tmp = generateStudent();
         base.addStudent(tmp);
@@ -44,5 +66,6 @@ int main() {
     base.readBase("StudentBase.txt");
     std::cout << "\nLoaded University is: \n";
     base.displayBase();
+    */
     return 0;
 }

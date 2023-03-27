@@ -24,12 +24,12 @@ void University::displayBase() const {
         displayPerson(el);
     }
 }
-/*
-void University::findPESEL(std::array<size_t, 11>& PESEL) const {
+
+void University::findPESEL(pesel& PESEL) const {
     size_t counter = 0;
-    for (auto& el : base_) {
-        if (el.getPESEL() == PESEL) {
-            displayStudent(el);
+    for (auto el : base_) {
+        if (el->getPESEL() == PESEL) {
+            displayPerson(el);
             counter++;
             break;
         }
@@ -41,9 +41,9 @@ void University::findPESEL(std::array<size_t, 11>& PESEL) const {
 
 void University::findSurname(std::string& surname) const {
     size_t counter = 0;
-    for (auto& el : base_) {
-        if (el.getSurname() == surname) {
-            displayStudent(el);
+    for (auto el : base_) {
+        if (el->getSurname() == surname) {
+            displayPerson(el);
             counter++;
         }
     }
@@ -53,42 +53,38 @@ void University::findSurname(std::string& surname) const {
 }
 
 void University::sortByPESEL() {
-    auto comparePESELS = [](Student& lhs, Student& rhs) {
-        return (lhs.getPESEL() < rhs.getPESEL());
+    auto comparePESELS = [](std::shared_ptr<Person> lhs, std::shared_ptr<Person> rhs) {
+        return (lhs->getPESEL() < rhs->getPESEL());
     };
-    base_.sort(comparePESELS);
+    std::sort(base_.begin(), base_.end(), comparePESELS);
 }
 
 void University::sortBySurname() {
-    auto compareSurnames = [](Student& lhs, Student& rhs) {
-        if (lhs.getSurname() == rhs.getSurname()) {
-            return (lhs.getName() < rhs.getName());
+    auto compareSurnames = [](std::shared_ptr<Person> lhs, std::shared_ptr<Person> rhs) {
+        if (lhs->getSurname() == rhs->getSurname()) {
+            return (lhs->getName() < rhs->getName());
         } else {
-            return (lhs.getSurname() < rhs.getSurname());
+            return (lhs->getSurname() < rhs->getSurname());
         }
     };
-    base_.sort(compareSurnames);
+    std::sort(base_.begin(), base_.end(), compareSurnames);
 }
 
-void University::removeStudent(const std::array<size_t, 11>& PESEL) {
-    auto it = base_.before_begin();
-    for (auto& el : base_) {
-        if (el.getPESEL() == PESEL) {
-            base_.erase_after(it);
+void University::removePerson(const pesel& PESEL) {
+    for (auto el : base_) {
+        if (el->getPESEL() == PESEL) {
+            base_.erase(std::remove(base_.begin(), base_.end(), el), base_.end());
             break;
         }
-        it = std::next(it);
     }
 }
-
+/*
 void University::removeStudent(const indexNo& index) {
-    auto it = base_.before_begin();
-    for (auto& el : base_) {
-        if (el.getIndex() == index) {
-            base_.erase_after(it);
+    for (auto el : base_) {
+        if (el->getIndex() == index) {
+            base_.erase(std::remove(base_.begin(), base_.end(), el), base_.end());
             break;
         }
-        it = std::next(it);
     }
 }
 
@@ -159,7 +155,7 @@ void University::readBase(std::string fileName) {
                 sex = sex::female;
             }
             Student record(name, surname, address, pesel, index, sex);
-            base_.insert_after(it, record);
+            base_.push_back(record);
             ++it;
         }
         file.close();
@@ -167,7 +163,7 @@ void University::readBase(std::string fileName) {
         std::cout << "Unable to open file: " << fileName << "!\n";
     }
 }
-
+*/
 void University::removeBase() {
-    base_.clear();
-} */
+    base_.erase(base_.begin(), base_.end());
+}
