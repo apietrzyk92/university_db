@@ -78,16 +78,15 @@ void University::removePerson(const pesel& PESEL) {
         }
     }
 }
-/*
-void University::removeStudent(const indexNo& index) {
-    for (auto el : base_) {
-        if (el->getIndex() == index) {
-            base_.erase(std::remove(base_.begin(), base_.end(), el), base_.end());
-            break;
-        }
-    }
-}
 
+void University::removeStudent(const indexNo& index) {
+    auto findAndRemoveStudent = [index](auto person) {
+        auto student = dynamic_cast<Student*>(person.get());
+        return student && student->getIndex() == index;
+    };
+    base_.erase(std::remove_if(base_.begin(), base_.end(), findAndRemoveStudent), base_.end());
+}
+/*
 void University::saveBase() {
     std::ofstream file;
     file.open("StudentBase.txt");

@@ -15,14 +15,21 @@ int main() {
     base.findPESEL(pesel);
     std::cout << "Find surname:\n";
     base.findSurname(surname);
-    std::cout << '\n';
+    std::cout << "Sort by PESEL:\n";
     base.sortByPESEL();
     base.displayBase();
-    std::cout << '\n';
+    std::cout << "Sort by surname:\n";
     base.sortBySurname();
     base.displayBase();
-    std::cout << '\n';
+    std::cout << "Remove first created student:\n";
     base.removePerson(pesel);
+    base.displayBase();
+    std::cout << "Add once again student:\n";
+    base.addPerson(test);
+    base.displayBase();
+    std::cout << "Remove student using index number:\n";
+    indexNo index = test->getIndex();
+    base.removeStudent(index);
     base.displayBase();
     /*
     for (size_t i = 0; i < 10; i++) {

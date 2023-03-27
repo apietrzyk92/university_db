@@ -33,7 +33,7 @@ public:
     void setPESEL(pesel PESEL);
     void setSex(sex sex);
 
-    void displaySex(const sex& sex) const;
+    virtual void displaySex(const sex& sex) const;
     void displayPESEL(const pesel& pesel) const;
 
     Person(std::string name, std::string surname, std::string address, pesel pesel, sex sex);

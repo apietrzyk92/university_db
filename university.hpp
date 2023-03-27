@@ -21,7 +21,8 @@ public:
     void sortByPESEL();
     void sortBySurname();
     void removePerson(const pesel& PESEL);
-    /* void removeStudent(const indexNo& index);
+    void removeStudent(const indexNo& index);
+    /*
       void saveBase();
       void readBase(std::string fileName);
     */
