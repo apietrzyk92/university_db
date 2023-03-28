@@ -6,16 +6,23 @@ void University::addPerson(std::shared_ptr<Person> person) {
         base_.push_back(person);
     } else {
         std::cout << "Unable to add person with incorrect PESEL!\n";
-        // University::removePerson(pesel);
     }
 }
 
 void University::displayPerson(std::shared_ptr<Person> person) const {
-    // person->displayIndex(person->getIndex());
-    std::cout << " " << person->getName() << " " << person->getSurname() << " ";
     person->displayPESEL(person->getPESEL());
-    std::cout << " " << person->getAddress() << " ";
+    std::cout << " " << person->getName() << " " << person->getSurname() << " " << person->getAddress() << " ";
     person->displaySex(person->getSex());
+    std::cout << ' ';
+    if (auto student = dynamic_cast<Student*>(person.get())) {
+        std::cout << "ID: ";
+        student->displayIndex(student->getIndex());
+    }
+    if (auto employee = dynamic_cast<Employee*>(person.get())) {
+        char str[10];
+        sprintf(str, "%.2f", employee->getSalary());
+        std::cout << str << " PLN";
+    }
     std::cout << '\n';
 }
 
@@ -85,6 +92,36 @@ void University::removeStudent(const indexNo& index) {
         return student && student->getIndex() == index;
     };
     base_.erase(std::remove_if(base_.begin(), base_.end(), findAndRemoveStudent), base_.end());
+}
+
+void University::modifySalary(pesel& pesel, float& salary) {
+    bool isSet = false;
+    for (auto el : base_) {
+        auto employee = dynamic_cast<Employee*>(el.get());
+        if (employee && employee->getPESEL() == pesel) {
+            employee->setSalary(salary);
+            isSet = true;
+            break;
+        }
+    }
+    if (!isSet) {
+        std::cout << "Cannot modify salary!\n";
+    }
+}
+
+void University::sortBySalary() {
+    auto compareSalary = [](std::shared_ptr<Person> lhs, std::shared_ptr<Person> rhs) {
+        auto employeeLHS = dynamic_cast<Employee*>(lhs.get());
+        auto employeeRHS = dynamic_cast<Employee*>(rhs.get());
+        if (employeeLHS && employeeRHS) {
+            return employeeLHS->getSalary() < employeeRHS->getSalary();
+        } else if (!employeeLHS && employeeRHS) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+    std::sort(base_.begin(), base_.end(), compareSalary);
 }
 /*
 void University::saveBase() {

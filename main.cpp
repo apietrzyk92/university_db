@@ -31,6 +31,27 @@ int main() {
     indexNo index = test->getIndex();
     base.removeStudent(index);
     base.displayBase();
+    pesel = test2->getPESEL();
+    std::cout << "Modify salary for " << test2->getSurname() << " " << test2->getName() << "\n";
+    float salary = 10000.93f;
+    base.modifySalary(pesel, salary);
+    base.displayBase();
+    pesel.at(2) = generateNumber(4, 9);
+    base.modifySalary(pesel, salary);
+    base.displayBase();
+    std::cout << "Adding some employees for testing sort by salary:\n";
+    std::shared_ptr<Employee> test3(new Employee(generateName(sex), generateSurname(sex), generateAddress(), generatePESEL(), 5432.11, sex));
+    sex = sex::female;
+    std::shared_ptr<Employee> test4(new Employee(generateName(sex), generateSurname(sex), generateAddress(), generatePESEL(), 9876.21, sex));
+    std::shared_ptr<Employee> test5(new Employee(generateName(sex), generateSurname(sex), generateAddress(), generatePESEL(), 2137.11, sex));
+    base.addPerson(test);
+    base.addPerson(test3);
+    base.addPerson(test4);
+    base.addPerson(test5);
+    base.displayBase();
+    std::cout << "Sorted by salary:\n";
+    base.sortBySalary();
+    base.displayBase();
     /*
     for (size_t i = 0; i < 10; i++) {
         Student tmp = generateStudent();
