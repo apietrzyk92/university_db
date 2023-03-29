@@ -106,13 +106,27 @@ std::string generateAddress() {
            postCodes[generateNumber(0, 9)] + " " + cityNames[generateNumber(0, 9)];
 }
 
-Student generateStudent() {
+std::shared_ptr<Student> generateStudent() {
     sex sex = generateSex();
-    std::string name = generateName(sex);
-    std::string surname = generateSurname(sex);
-    std::string address = generateAddress();
-    std::array<size_t, 11> pesel = generatePESEL();
-    std::array<size_t, 6> index = generateIndex();
-    Student generated(name, surname, address, pesel, index, sex);
-    return generated;
+    std::shared_ptr<Student> student(new Student(generateName(sex),
+                                                 generateSurname(sex),
+                                                 generateAddress(),
+                                                 generatePESEL(),
+                                                 generateIndex(), sex));
+    return student;
+}
+
+std::shared_ptr<Employee> generateEmployee() {
+    sex sex = generateSex();
+    std::shared_ptr<Employee> employee(new Employee(generateName(sex),
+                                                    generateSurname(sex),
+                                                    generateAddress(),
+                                                    generatePESEL(),
+                                                    generateSalary(),
+                                                    sex));
+    return employee;
+}
+
+float generateSalary() {
+    return (float)(generateNumber(349000, 999999)) / 100;
 }

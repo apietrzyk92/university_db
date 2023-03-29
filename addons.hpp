@@ -1,5 +1,7 @@
 #pragma once
+#include <memory>
 #include <random>
+#include "employee.hpp"
 #include "student.hpp"
 
 pesel generatePESEL();
@@ -8,6 +10,9 @@ sex generateSex();
 std::string generateName(sex sex);
 std::string generateSurname(sex sex);
 std::string generateAddress();
-Student generateStudent();
+std::shared_ptr<Student> generateStudent();
 
 size_t generateNumber(int a, int b);
+
+std::shared_ptr<Employee> generateEmployee();
+float generateSalary();

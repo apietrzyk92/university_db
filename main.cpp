@@ -4,8 +4,8 @@
 int main() {
     University base;
     sex sex = sex::male;
-    std::shared_ptr<Student> test(new Student(generateName(sex), generateSurname(sex), generateAddress(), generatePESEL(), generateIndex(), sex));
-    std::shared_ptr<Employee> test2(new Employee(generateName(sex), generateSurname(sex), generateAddress(), generatePESEL(), 4321.12, sex));
+    std::shared_ptr<Student> test = generateStudent();
+    std::shared_ptr<Employee> test2 = generateEmployee();
     base.addPerson(test);
     base.addPerson(test2);
     base.displayBase();

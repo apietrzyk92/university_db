@@ -116,9 +116,9 @@ void University::sortBySalary() {
         if (employeeLHS && employeeRHS) {
             return employeeLHS->getSalary() < employeeRHS->getSalary();
         } else if (!employeeLHS && employeeRHS) {
-            return true;
-        } else {
             return false;
+        } else {
+            return true;
         }
     };
     std::sort(base_.begin(), base_.end(), compareSalary);
