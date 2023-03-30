@@ -1,11 +1,11 @@
 #include "student.hpp"
 
 indexNo Student::getIndex() const {
-    return Student::index_;
+    return index_;
 }
 
 void Student::setIndex(indexNo index) {
-    Student::index_ = index;
+    index_ = index;
 }
 
 void Student::displayIndex(const indexNo& index) const {
@@ -19,6 +19,6 @@ Student::Student(std::string name,
                  std::string address,
                  pesel pesel,
                  indexNo index,
-                 sex sex)
+                 Sex sex)
     : Person(name, surname, address, pesel, sex), index_(index) {
 }

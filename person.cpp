@@ -1,47 +1,47 @@
 #include "person.hpp"
 
 std::string Person::getName() const {
-    return Person::name_;
+    return name_;
 }
 
 std::string Person::getSurname() const {
-    return Person::surname_;
+    return surname_;
 }
 
 std::string Person::getAddress() const {
-    return Person::address_;
+    return address_;
 }
 
 pesel Person::getPESEL() const {
-    return Person::pesel_;
+    return pesel_;
 }
 
-sex Person::getSex() const {
-    return Person::sex_;
+Sex Person::getSex() const {
+    return sex_;
 }
 
 void Person::setName(std::string name) {
-    Person::name_ = name;
+    name_ = name;
 }
 
 void Person::setSurname(std::string surname) {
-    Person::surname_ = surname;
+    surname_ = surname;
 }
 
 void Person::setAddress(std::string address) {
-    Person::address_ = address;
+    address_ = address;
 }
 
 void Person::setPESEL(pesel pesel) {
     if (validatePESEL(pesel)) {
-        Person::pesel_ = pesel;
+        pesel_ = pesel;
     } else {
         std::cout << "Incorrect PESEL!\n";
     }
 }
 
-void Person::setSex(sex sex) {
-    Person::sex_ = sex;
+void Person::setSex(Sex sex) {
+    sex_ = sex;
 }
 
 void Person::displayPESEL(const pesel& pesel) const {
@@ -50,12 +50,12 @@ void Person::displayPESEL(const pesel& pesel) const {
     }
 }
 
-void Person::displaySex(const sex& sex) const {
+void Person::displaySex(const Sex& sex) const {
     switch (sex) {
-    case sex::female:
+    case Sex::female:
         std::cout << "female";
         break;
-    case sex::male:
+    case Sex::male:
         std::cout << "male";
         break;
     default:
@@ -77,7 +77,7 @@ bool Person::validatePESEL(pesel pesel) {
     }
 }
 
-Person::Person(std::string name, std::string surname, std::string address, pesel pesel, sex sex)
+Person::Person(std::string name, std::string surname, std::string address, pesel pesel, Sex sex)
     : name_(name), surname_(surname), address_(address), pesel_(pesel), sex_(sex) {
     if (validatePESEL(pesel)) {
         pesel_ = pesel;

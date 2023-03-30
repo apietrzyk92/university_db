@@ -1,12 +1,10 @@
-#include "addons.hpp"
 #include "university.hpp"
 
 int main() {
     University base;
-    generatePeople(base, 20);
-    sex sex = sex::male;
-    std::shared_ptr<Student> test = generateStudent();
-    std::shared_ptr<Employee> test2 = generateEmployee();
+    base.generatePeople(2);
+    std::shared_ptr<Student> test = base.generateStudent();
+    std::shared_ptr<Employee> test2 = base.generateEmployee();
     base.addPerson(test);
     base.addPerson(test2);
     base.displayBase();
@@ -22,13 +20,13 @@ int main() {
     std::cout << "Sort by surname:\n";
     base.sortBySurname();
     base.displayBase();
-    std::cout << "Remove first created student:\n";
+    std::cout << "Remove " << test->getSurname() << ":\n";
     base.removePerson(pesel);
     base.displayBase();
-    std::cout << "Add once again student:\n";
+    std::cout << "Add once again " << test->getSurname() << ":\n";
     base.addPerson(test);
     base.displayBase();
-    std::cout << "Remove student using index number:\n";
+    std::cout << "Remove " << test->getSurname() << " using index number:\n";
     indexNo index = test->getIndex();
     base.removeStudent(index);
     base.displayBase();
@@ -37,18 +35,8 @@ int main() {
     float salary = 10000.93f;
     base.modifySalary(pesel, salary);
     base.displayBase();
-    pesel.at(2) = generateNumber(4, 9);
+    pesel.at(2) = 7u;
     base.modifySalary(pesel, salary);
-    base.displayBase();
-    std::cout << "Adding some employees for testing sort by salary:\n";
-    std::shared_ptr<Employee> test3(new Employee(generateName(sex), generateSurname(sex), generateAddress(), generatePESEL(), 5432.11, sex));
-    sex = sex::female;
-    std::shared_ptr<Employee> test4(new Employee(generateName(sex), generateSurname(sex), generateAddress(), generatePESEL(), 9876.21, sex));
-    std::shared_ptr<Employee> test5(new Employee(generateName(sex), generateSurname(sex), generateAddress(), generatePESEL(), 2137.11, sex));
-    base.addPerson(test);
-    base.addPerson(test3);
-    base.addPerson(test4);
-    base.addPerson(test5);
     base.displayBase();
     std::cout << "Sorted by salary:\n";
     base.sortBySalary();
