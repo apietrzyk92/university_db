@@ -130,3 +130,15 @@ std::shared_ptr<Employee> generateEmployee() {
 float generateSalary() {
     return (float)(generateNumber(349000, 999999)) / 100;
 }
+
+void generatePeople(University& base, size_t n) {
+    std::shared_ptr<Person> person;
+    for (size_t i = 0; i < n; i++) {
+        if (generateNumber(0, 1) > 0) {
+            person = generateStudent();
+        } else {
+            person = generateEmployee();
+        }
+        base.addPerson(person);
+    }
+}
