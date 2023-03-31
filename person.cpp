@@ -12,7 +12,7 @@ std::string Person::getAddress() const {
     return address_;
 }
 
-pesel Person::getPESEL() const {
+std::string Person::getPESEL() const {
     return pesel_;
 }
 
@@ -32,7 +32,7 @@ void Person::setAddress(std::string address) {
     address_ = address;
 }
 
-void Person::setPESEL(pesel pesel) {
+void Person::setPESEL(std::string pesel) {
     if (validatePESEL(pesel)) {
         pesel_ = pesel;
     } else {
@@ -43,12 +43,10 @@ void Person::setPESEL(pesel pesel) {
 void Person::setSex(Sex sex) {
     sex_ = sex;
 }
-
-void Person::displayPESEL(const pesel& pesel) const {
-    for (auto& el : pesel) {
-        std::cout << el;
-    }
-}
+/* to chyba nie potrzebne:
+void Person::displayPESEL(const std::string& pesel) const {
+        std::cout << pesel;
+} */
 
 void Person::displaySex(const Sex& sex) const {
     switch (sex) {
@@ -63,21 +61,21 @@ void Person::displaySex(const Sex& sex) const {
     }
 }
 
-bool Person::validatePESEL(pesel pesel) {
+bool Person::validatePESEL(std::string pesel) {
     std::array<size_t, 10> w = {1, 3, 7, 9, 1, 3, 7, 9, 1, 3};
     size_t S = 0;
     for (size_t i = 0; i < 10; i++) {
-        S += pesel[i] * w[i];
+        S += (size_t)(pesel[i] - '0') * w[i];
     }
     S = S % 10;
     if (S == 0) {
-        return (pesel[10] == 0);
+        return ((size_t)(pesel[10] - '0') == 0);
     } else {
-        return (pesel[10] == (10 - S));
+        return ((size_t)(pesel[10] - '0') == (10u - S));
     }
 }
 
-Person::Person(std::string name, std::string surname, std::string address, pesel pesel, Sex sex)
+Person::Person(std::string name, std::string surname, std::string address, std::string pesel, Sex sex)
     : name_(name), surname_(surname), address_(address), pesel_(pesel), sex_(sex) {
     if (validatePESEL(pesel)) {
         pesel_ = pesel;

@@ -16,25 +16,26 @@ private:
     std::string name_;
     std::string surname_;
     std::string address_;
-    pesel pesel_;
+    std::string pesel_;
     Sex sex_;
 
 public:
-    bool validatePESEL(pesel pesel);
+    bool validatePESEL(std::string pesel);
     std::string getName() const;
     std::string getSurname() const;
     std::string getAddress() const;
-    pesel getPESEL() const;
+    std::string getPESEL() const;
     Sex getSex() const;
 
+    // czy setery są potrzebne?
     void setName(std::string name);
     void setSurname(std::string surname);
     void setAddress(std::string address);
-    void setPESEL(pesel PESEL);
+    void setPESEL(std::string PESEL);
     void setSex(Sex sex);
 
     virtual void displaySex(const Sex& sex) const;
-    void displayPESEL(const pesel& pesel) const;
+    // void displayPESEL(const pesel& pesel) const;
 
-    Person(std::string name, std::string surname, std::string address, pesel pesel, Sex sex);
+    Person(std::string name, std::string surname, std::string address, std::string pesel, Sex sex);
 };

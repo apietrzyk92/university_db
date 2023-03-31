@@ -8,11 +8,11 @@ int main() {
     base.addPerson(test);
     base.addPerson(test2);
     base.displayBase();
-    pesel pesel = test->getPESEL();
+    std::string pesel = test->getPESEL();
     std::string surname = test->getSurname();
-    std::cout << "Find PESEL:\n";
+    std::cout << "Find PESEL " << pesel << " :\n";
     base.findPESEL(pesel);
-    std::cout << "Find surname:\n";
+    std::cout << "Find surname " << surname << " :\n";
     base.findSurname(surname);
     std::cout << "Sort by PESEL:\n";
     base.sortByPESEL();

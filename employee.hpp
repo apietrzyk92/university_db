@@ -9,5 +9,5 @@ public:
     float getSalary() const;
     void setSalary(float salary);
 
-    Employee(std::string name, std::string surname, std::string address, pesel PESEL, float salary, Sex sex);
+    Employee(std::string name, std::string surname, std::string address, std::string PESEL, float salary, Sex sex);
 };

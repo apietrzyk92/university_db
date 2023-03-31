@@ -17,7 +17,7 @@ void Student::displayIndex(const indexNo& index) const {
 Student::Student(std::string name,
                  std::string surname,
                  std::string address,
-                 pesel pesel,
+                 std::string pesel,
                  indexNo index,
                  Sex sex)
     : Person(name, surname, address, pesel, sex), index_(index) {

@@ -12,5 +12,5 @@ public:
 
     void setIndex(indexNo index);
 
-    Student(std::string name, std::string surname, std::string address, pesel PESEL, indexNo index, Sex sex);
+    Student(std::string name, std::string surname, std::string address, std::string PESEL, indexNo index, Sex sex);
 };

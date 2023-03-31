@@ -8,5 +8,5 @@ void Employee::setSalary(float salary) {
     salary_ = salary;
 }
 
-Employee::Employee(std::string name, std::string surname, std::string address, pesel PESEL, float salary, Sex sex)
+Employee::Employee(std::string name, std::string surname, std::string address, std::string PESEL, float salary, Sex sex)
     : Person(name, surname, address, PESEL, sex), salary_(salary) {}

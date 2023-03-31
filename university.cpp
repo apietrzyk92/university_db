@@ -1,17 +1,11 @@
 #include "university.hpp"
 
 void University::addPerson(std::shared_ptr<Person> person) {
-    pesel pesel = person->getPESEL();
-    if (person->validatePESEL(pesel)) {
-        base_.push_back(person);
-    } else {
-        std::cout << "Unable to add person with incorrect PESEL!\n";
-    }
+    base_.push_back(person);
 }
 
 void University::displayPerson(std::shared_ptr<Person> person) const {
-    person->displayPESEL(person->getPESEL());
-    std::cout << " " << person->getName() << " " << person->getSurname() << " " << person->getAddress() << " ";
+    std::cout << person->getPESEL() << " " << person->getName() << " " << person->getSurname() << " " << person->getAddress() << " ";
     person->displaySex(person->getSex());
     std::cout << ' ';
     if (auto student = dynamic_cast<Student*>(person.get())) {
@@ -32,7 +26,7 @@ void University::displayBase() const {
     }
 }
 
-void University::findPESEL(pesel& PESEL) const {
+void University::findPESEL(std::string& PESEL) const {
     size_t counter = 0;
     for (auto& el : base_) {
         if (el->getPESEL() == PESEL) {
@@ -77,7 +71,7 @@ void University::sortBySurname() {
     std::sort(base_.begin(), base_.end(), compareSurnames);
 }
 
-void University::removePerson(const pesel& PESEL) {
+void University::removePerson(const std::string& PESEL) {
     for (auto el : base_) {
         if (el->getPESEL() == PESEL) {
             base_.erase(std::remove(base_.begin(), base_.end(), el), base_.end());
@@ -94,7 +88,7 @@ void University::removeStudent(const indexNo& index) {
     base_.erase(std::remove_if(base_.begin(), base_.end(), findAndRemoveStudent), base_.end());
 }
 
-void University::modifySalary(pesel& pesel, float& salary) {
+void University::modifySalary(std::string& pesel, float& salary) {
     bool isSet = false;
     for (auto el : base_) {
         auto employee = dynamic_cast<Employee*>(el.get());
@@ -211,20 +205,17 @@ size_t University::generateNumber(int a, int b) {
     return (size_t)distrib(gen);
 }
 
-std::array<size_t, 11> University::generatePESEL() {
-    std::array<size_t, 11> output;
-    // year:
+std::string University::generatePESEL() {
+    std::string output;
     size_t year = generateNumber(0, 99);
     if (year < 51) {
         year /= 10;
     }
-    output.at(0) = year / 10;
-    output.at(1) = year % 10;
-    // month:
+    output = std::to_string(year / 10);
+    output += std::to_string(year % 10);
     size_t month = generateNumber(1, 12);
-    output.at(2) = month / 10;
-    output.at(3) = month % 10;
-    // day:
+    output += std::to_string(month / 10);
+    output += std::to_string(month % 10);
     size_t day = 0;
     if (month == 2) {
         day = generateNumber(1, 28);
@@ -233,24 +224,24 @@ std::array<size_t, 11> University::generatePESEL() {
     } else {
         day = generateNumber(1, 31);
     }
-    output.at(4) = day / 10;
-    output.at(5) = day % 10;
+    output += std::to_string(month / 10);
+    output += std::to_string(month % 10);
     if (output.at(0) == 0) {
         output.at(2) += 2;
     }
     for (size_t i = 6; i < 10; i++) {
-        output.at(i) = generateNumber(0, 9);
+        output += std::to_string(generateNumber(0, 9));
     }
     size_t S = 0;
     std::array<size_t, 10> w = {1, 3, 7, 9, 1, 3, 7, 9, 1, 3};
     for (size_t i = 0; i < 10; i++) {
-        S += output[i] * w[i];
+        S += (size_t)(output[i] - '0') * w[i];
     }
     S = S % 10;
     if (S == 0) {
-        output[10] = 0;
+        output += "0";
     } else {
-        output[10] = 10 - S;
+        output += std::to_string(10 - S);
     }
     return output;
 }
