@@ -27,7 +27,7 @@ int main() {
     base.addPerson(test);
     base.displayBase();
     std::cout << "Remove " << test->getSurname() << " using index number:\n";
-    indexNo index = test->getIndex();
+    std::string index = test->getIndex();
     base.removeStudent(index);
     base.displayBase();
     pesel = test2->getPESEL();

@@ -9,8 +9,7 @@ void University::displayPerson(std::shared_ptr<Person> person) const {
     person->displaySex(person->getSex());
     std::cout << ' ';
     if (auto student = dynamic_cast<Student*>(person.get())) {
-        std::cout << "ID: ";
-        student->displayIndex(student->getIndex());
+        std::cout << "ID: " << student->getIndex();
     }
     if (auto employee = dynamic_cast<Employee*>(person.get())) {
         char str[8];
@@ -54,10 +53,10 @@ void University::findSurname(std::string& surname) const {
 }
 
 void University::sortByPESEL() {
-    auto comparePESELS = [](std::shared_ptr<Person> lhs, std::shared_ptr<Person> rhs) {
+    auto comparePESELs = [](std::shared_ptr<Person> lhs, std::shared_ptr<Person> rhs) {
         return (lhs->getPESEL() < rhs->getPESEL());
     };
-    std::sort(base_.begin(), base_.end(), comparePESELS);
+    std::sort(base_.begin(), base_.end(), comparePESELs);
 }
 
 void University::sortBySurname() {
@@ -80,7 +79,7 @@ void University::removePerson(const std::string& PESEL) {
     }
 }
 
-void University::removeStudent(const indexNo& index) {
+void University::removeStudent(const std::string& index) {
     auto findAndRemoveStudent = [index](auto person) {
         auto student = dynamic_cast<Student*>(person.get());
         return student && student->getIndex() == index;
@@ -246,10 +245,10 @@ std::string University::generatePESEL() {
     return output;
 }
 
-std::array<size_t, 6> University::generateIndex() {
-    std::array<size_t, 6> output;
+std::string University::generateIndex() {
+    std::string output;
     for (size_t i = 0; i < 6; i++) {
-        output[i] = generateNumber(0, 9);
+        output += std::to_string(generateNumber(0, 9));
     }
     return output;
 }

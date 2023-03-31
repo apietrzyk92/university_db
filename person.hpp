@@ -3,9 +3,6 @@
 #include <iostream>
 #include <string>
 
-using pesel = std::array<size_t, 11>;
-using indexNo = std::array<size_t, 6>;
-
 enum class Sex {
     male,
     female

@@ -3,14 +3,14 @@
 
 class Student : public Person {
 private:
-    indexNo index_;
+    std::string index_;
 
 public:
-    indexNo getIndex() const;
+    std::string getIndex() const;
 
-    void displayIndex(const indexNo& index) const;
+    // void displayIndex(const std::string& index) const;
 
-    void setIndex(indexNo index);
+    void setIndex(std::string index);
 
-    Student(std::string name, std::string surname, std::string address, std::string PESEL, indexNo index, Sex sex);
+    Student(std::string name, std::string surname, std::string address, std::string PESEL, std::string index, Sex sex);
 };

@@ -14,7 +14,7 @@ private:
     void displayPerson(std::shared_ptr<Person> person) const;
     void removeBase();
     std::string generatePESEL();
-    indexNo generateIndex();
+    std::string generateIndex();
     Sex generateSex();
     std::string generateName(Sex sex);
     std::string generateSurname(Sex sex);
@@ -30,7 +30,7 @@ public:
     void sortByPESEL();
     void sortBySurname();
     void removePerson(const std::string& PESEL);
-    void removeStudent(const indexNo& index);
+    void removeStudent(const std::string& index);
     void modifySalary(std::string& pesel, float& salary);
     void sortBySalary();
     /*
