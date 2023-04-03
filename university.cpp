@@ -225,8 +225,8 @@ std::string University::generatePESEL() {
     }
     output += std::to_string(month / 10);
     output += std::to_string(month % 10);
-    if (output.at(0) == 0) {
-        output.at(2) += 2;
+    if (output.at(0) == '0') {
+        output.at(2) += (char)2;
     }
     for (size_t i = 6; i < 10; i++) {
         output += std::to_string(generateNumber(0, 9));

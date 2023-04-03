@@ -2,7 +2,7 @@
 
 int main() {
     University base;
-    base.generatePeople(2);
+    base.generatePeople(10);
     std::shared_ptr<Student> test = base.generateStudent();
     std::shared_ptr<Employee> test2 = base.generateEmployee();
     base.addPerson(test);
