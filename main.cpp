@@ -36,12 +36,27 @@ int main() {
     base.modifySalary(pesel, salary);
     base.displayBase();
     pesel.at(2) = 7u;
-    base.modifySalary(pesel, salary);
+    try {
+        base.modifySalary(pesel, salary);
+    } catch (std::invalid_argument const& inv_arg) {
+        std::cout << inv_arg.what() << '\n';
+    }
     base.displayBase();
     std::cout << "Sorted by salary:\n";
     base.sortBySalary();
     base.displayBase();
-
+    try {
+        std::shared_ptr<Person> person(new Person("Wrong", "Pesel", "Person 1 00-001 Test", "12345678900", Sex::male));
+    } catch (std::invalid_argument const& inv_arg) {
+        std::cout << inv_arg.what() << '\n';
+    }
+    std::shared_ptr<Employee> emp1 = base.generateEmployee();
+    std::string pesel2 = "12345678900";
+    try {
+        emp1->setPESEL(pesel2);
+    } catch (std::invalid_argument const& inv_arg) {
+        std::cout << inv_arg.what() << '\n';
+    }
     /*
   for (size_t i = 0; i < 10; i++) {
       Student tmp = generateStudent();

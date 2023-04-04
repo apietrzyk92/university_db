@@ -98,7 +98,7 @@ void University::modifySalary(std::string& pesel, float& salary) {
         }
     }
     if (!isSet) {
-        std::cout << "Cannot modify salary!\n";
+        throw std::invalid_argument{"Cannot modify salary for provided PESEL!"};
     }
 }
 

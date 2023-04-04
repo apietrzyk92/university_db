@@ -36,7 +36,7 @@ void Person::setPESEL(std::string pesel) {
     if (validatePESEL(pesel)) {
         pesel_ = pesel;
     } else {
-        std::cout << "Incorrect PESEL!\n";
+        throw std::invalid_argument{"PESEL validation failed!"};
     }
 }
 
@@ -76,11 +76,10 @@ bool Person::validatePESEL(std::string pesel) {
 }
 
 Person::Person(std::string name, std::string surname, std::string address, std::string pesel, Sex sex)
-    : name_(name), surname_(surname), address_(address), pesel_(pesel), sex_(sex) {
+    : name_(name), surname_(surname), address_(address), sex_(sex) {
     if (validatePESEL(pesel)) {
         pesel_ = pesel;
     } else {
-        std::cout << "Person created, but PESEL is incorrect!\n";
-        pesel_ = pesel;
+        throw std::invalid_argument{"PESEL validation failed!"};
     }
 }
