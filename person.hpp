@@ -33,7 +33,6 @@ public:
     void setSex(Sex sex);
 
     virtual void displaySex(const Sex& sex) const;
-    // void displayPESEL(const pesel& pesel) const;
 
     Person(std::string name, std::string surname, std::string address, std::string pesel, Sex sex);
 };

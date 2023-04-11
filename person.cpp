@@ -43,10 +43,6 @@ void Person::setPESEL(std::string pesel) {
 void Person::setSex(Sex sex) {
     sex_ = sex;
 }
-/* to chyba nie potrzebne:
-void Person::displayPESEL(const std::string& pesel) const {
-        std::cout << pesel;
-} */
 
 void Person::displaySex(const Sex& sex) const {
     switch (sex) {
@@ -77,9 +73,5 @@ bool Person::validatePESEL(std::string pesel) {
 
 Person::Person(std::string name, std::string surname, std::string address, std::string pesel, Sex sex)
     : name_(name), surname_(surname), address_(address), sex_(sex) {
-    if (validatePESEL(pesel)) {
-        pesel_ = pesel;
-    } else {
-        throw std::invalid_argument{"PESEL validation failed!"};
-    }
+    setPESEL(pesel);
 }

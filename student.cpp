@@ -8,12 +8,6 @@ void Student::setIndex(std::string index) {
     index_ = index;
 }
 
-/*void Student::displayIndex(const std::String& index) const {
-    for (auto& el : index) {
-        std::cout << el;
-    }
-} */
-
 Student::Student(std::string name,
                  std::string surname,
                  std::string address,
