@@ -13,14 +13,6 @@ private:
 
     void displayPerson(std::shared_ptr<Person> person) const;
     void removeBase();
-    std::string generatePESEL();
-    std::string generateIndex();
-    Sex generateSex();
-    std::string generateName(Sex sex);
-    std::string generateSurname(Sex sex);
-    std::string generateAddress();
-    size_t generateNumber(int a, int b);
-    float generateSalary();
 
 public:
     void addPerson(std::shared_ptr<Person> person);
@@ -37,7 +29,4 @@ public:
       void saveBase();
       void readBase(std::string fileName);
     */
-    std::shared_ptr<Student> generateStudent();
-    std::shared_ptr<Employee> generateEmployee();
-    void generatePeople(size_t n);
 };
