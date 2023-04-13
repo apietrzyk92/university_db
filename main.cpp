@@ -60,7 +60,7 @@ int main() {
         std::cout << inv_arg.what() << '\n';
     }
     pUni->saveBase();
-    pUni->readBase("StudentBase.txt");
+    pUni->readBase("UniversityBase.txt");
     pUni->displayBase();
     return 0;
 }

@@ -119,7 +119,7 @@ void University::sortBySalary() {
 
 void University::saveBase() {
     std::ofstream file;
-    file.open("StudentBase.txt");
+    file.open("UniversityBase.txt");
     file << "PESEL\tName\tSurname\tAddress\tsex\tSalary\tIndex\t\n";
     for (auto& el : base_) {
         file << el->getPESEL() << '\t' << el->getName() << '\t' << el->getSurname() << '\t' << el->getAddress() << '\t';
@@ -196,7 +196,7 @@ void University::readBase(std::string fileName) {
         }
         file.close();
     } else {
-        std::cout << "Unable to open file: " << fileName << "!\n";
+        throw std::runtime_error{"Unable to open file!"};
     }
 }
 
