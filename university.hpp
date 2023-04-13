@@ -25,8 +25,6 @@ public:
     void removeStudent(const std::string& index);
     void modifySalary(std::string& pesel, float& salary);
     void sortBySalary();
-    /*
-      void saveBase();
-      void readBase(std::string fileName);
-    */
+    void saveBase();
+    void readBase(std::string fileName);
 };

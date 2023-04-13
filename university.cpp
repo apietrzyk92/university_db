@@ -117,27 +117,28 @@ void University::sortBySalary() {
     std::sort(base_.begin(), base_.end(), compareSalary);
 }
 
-/*
 void University::saveBase() {
     std::ofstream file;
     file.open("StudentBase.txt");
-    file << "Index, Name, Surname, Address, PESEL, sex\n";
+    file << "PESEL\tName\tSurname\tAddress\tsex\tSalary\tIndex\t\n";
     for (auto& el : base_) {
-        std::array<size_t, 6> index = el.getIndex();
-        for (size_t i = 0; i < 6; i++) {
-            file << index[i];
-        }
-        file << ',' << el.getName() << ',' << el.getSurname() << ','
-             << el.getAddress() << ',';
-        std::array<size_t, 11> PESEL = el.getPESEL();
-        for (size_t i = 0; i < 11; i++) {
-            file << PESEL[i];
-        }
-        file << ',';
-        if (el.getSex() == sex::male) {
-            file << "male\n";
+        file << el->getPESEL() << '\t' << el->getName() << '\t' << el->getSurname() << '\t' << el->getAddress() << '\t';
+        if (el->getSex() == Sex::male) {
+            file << "male\t";
         } else {
-            file << "female\n";
+            file << "female\t";
+        }
+        auto employee = dynamic_cast<Employee*>(el.get());
+        auto student = dynamic_cast<Student*>(el.get());
+        if (employee) {
+            float salary = employee->getSalary();
+            char str[8];
+            sprintf(str, "%.2f", employee->getSalary());
+            file << str << "\t\t\n";
+        } else if (student) {
+            file << "\t" << student->getIndex() << "\t\n";
+        } else {
+            file << "\t\t\n";
         }
     }
     file.close();
@@ -150,50 +151,55 @@ void University::readBase(std::string fileName) {
     std::string surname;
     std::string address;
     std::string tmp;
-    std::array<size_t, 6> index;
-    std::array<size_t, 11> pesel;
-    sex sex;
+    std::string index;
+    std::string pesel;
+    Sex sex;
     std::ifstream file(fileName);
-    auto it = base_.before_begin();
     if (file.is_open()) {
         getline(file, line);  // extracting column's headers
         while (getline(file, line)) {
-            size_t pos = line.find(",");
-            tmp = line.substr(0, pos);
-            for (size_t i = 0; i < 6; i++) {
-                index[i] = (size_t)(tmp[i] - '0');
-            }
+            size_t pos = line.find('\t');
+            pesel = line.substr(0, pos);
             line = line.substr(pos + 1);
-            pos = line.find(",");
+            pos = line.find('\t');
             name = line.substr(0, pos);
             line = line.substr(pos + 1);
-            pos = line.find(",");
+            pos = line.find('\t');
             surname = line.substr(0, pos);
             line = line.substr(pos + 1);
-            pos = line.find(",");
+            pos = line.find('\t');
             address = line.substr(0, pos);
             line = line.substr(pos + 1);
-            pos = line.find(",");
+            pos = line.find('\t');
             tmp = line.substr(0, pos);
-            for (size_t i = 0; i < 11; i++) {
-                pesel[i] = (size_t)(tmp[i] - '0');
+            if (tmp == "male") {
+                sex = Sex::male;
+            } else {
+                sex = Sex::female;
             }
             line = line.substr(pos + 1);
-            if (line == "male") {
-                sex = sex::male;
-            } else {
-                sex = sex::female;
+            pos = line.find('\t');
+            tmp = line.substr(0, pos);
+            if (tmp.length() > 0) {
+                float salary = std::stof(tmp);
+                std::shared_ptr<Employee> employee(new Employee(name, surname, address, pesel, salary, sex));
+                addPerson(employee);
             }
-            Student record(name, surname, address, pesel, index, sex);
-            base_.push_back(record);
-            ++it;
+            line = line.substr(pos + 1);
+            pos = line.find('\t');
+            tmp = line.substr(0, pos);
+            if (tmp.length() > 0) {
+                index = tmp;
+                std::shared_ptr<Student> student(new Student(name, surname, address, pesel, index, sex));
+                addPerson(student);
+            }
         }
         file.close();
     } else {
         std::cout << "Unable to open file: " << fileName << "!\n";
     }
 }
-*/
+
 void University::removeBase() {
     base_.erase(base_.begin(), base_.end());
 }

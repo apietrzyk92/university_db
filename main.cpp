@@ -59,6 +59,8 @@ int main() {
     } catch (std::invalid_argument const& inv_arg) {
         std::cout << inv_arg.what() << '\n';
     }
-
+    pUni->saveBase();
+    pUni->readBase("StudentBase.txt");
+    pUni->displayBase();
     return 0;
 }
